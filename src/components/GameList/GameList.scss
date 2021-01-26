@@ -1,0 +1,27 @@
+@import "../../styles/styles.scss";
+
+.games {
+  height: 250px;
+  background-color: aqua;
+
+  &__card {
+    min-width: 110px;
+    height: 250px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__image {
+    width: 150px;
+    height: 200px;
+    margin-right: 8px;
+    cursor: grab;
+  }
+
+  &__title {
+    font-size: 16px;
+    margin: 0;
+  }
+}

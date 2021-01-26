@@ -1,0 +1,31 @@
+@import "../../styles/styles.scss";
+
+.header {
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: antiquewhite;
+  display: flex;
+  align-items: center;
+  padding: 0 12.5%;
+
+  &__logo-container {
+    width: 50%;
+    justify-content: flex-start;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    &-feed {
+      margin-right: 20px;
+    }
+  }
+
+  &__user-container {
+    display: flex;
+    margin-left: 50px;
+  }
+}

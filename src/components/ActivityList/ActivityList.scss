@@ -1,0 +1,22 @@
+@import "../../styles/styles.scss";
+
+.activity {
+  background-color: coral;
+  border: 1px solid black;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+
+  &__host {
+    font-weight: bold;
+  }
+
+  &__info {
+    margin-right: 10px;
+
+    &-container {
+      display: flex;
+    }
+  }
+}

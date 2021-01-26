@@ -1,0 +1,80 @@
+@import "../../styles/styles.scss";
+
+.create {
+  padding: 0 12.5%;
+
+  &__header {
+    font-size: 2.25rem;
+    line-height: 44px;
+    padding: 48px 0 32px;
+    border-bottom: 1px solid #e1e1e1;
+  }
+  &__form {
+    border: none;
+    padding: 0;
+    width: 100%;
+
+    &-container {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #e1e1e1;
+      padding-bottom: 40px;
+    }
+
+    &-game {
+      padding-right: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-label {
+      margin-top: 40px;
+      font-weight: 500;
+      font-size: 0.75rem;
+      line-height: 1.25rem;
+      color: #afafaf;
+      margin: 0;
+    }
+
+    &-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-input {
+      // width: 100%;
+      // height: 48px;
+      // border-radius: 2px;
+      // box-sizing: border-box;
+      // margin-bottom: 16px;
+      // background-color: #fafafa;
+      // font-family: "Avenir";
+      // padding-left: 16px;
+      // padding-top: 16px;
+      // border: 1px solid #e1e1e1;
+      // width: 100%;
+      resize: none;
+      border: 1px solid #bdc5d5;
+      box-sizing: border-box;
+      border-radius: 20px;
+      background: white;
+      resize: none;
+      width: 100%;
+      max-width: 100%;
+      padding: 8px 16px;
+      height: 36px;
+      margin-bottom: 0;
+      font-size: 0.8125rem;
+      height: 120px;
+    }
+
+    &-select {
+      background-image: url(../../assets/icons/arrow_drop_down-24px.svg);
+      background-repeat: no-repeat, repeat;
+      background-position: right 23px top 50%, 0 0;
+      background-size: 1.5em auto, 100%;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+    }
+  }
+}
