@@ -14,9 +14,9 @@ function Home() {
   // const history = useHistory();
   const [searchTerm, setSearchTerm] = useState("");
 
-  let gameSearch = (e) => {
-    setSearchTerm(e);
-  };
+  // let gameSearch = (e) => {
+  //   setSearchTerm(e);
+  // };
 
   function getActivities() {
     db.collection("activities")
@@ -50,7 +50,7 @@ function Home() {
 
   return (
     <div className="home">
-      <Header searchHandler={gameSearch} />
+      {/* <Header searchHandler={gameSearch} /> */}
       {/* <input
         type="text"
         placeholder="Search..."

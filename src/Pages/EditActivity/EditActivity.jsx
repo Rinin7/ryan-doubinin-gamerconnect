@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import fire from "../../config/Fire";
-import firebase from "firebase";
-import Header from "../../components/Header/Header";
-import "./ViewActivity.scss";
+import React from "react";
 
-export default function ViewActivity() {
+export default function EditActivity() {
   const { id } = useParams();
   const db = fire.firestore();
   const [activity, setActivity] = useState([]);
-  // const [selectedGame, setSelectedGame] = useState("");
-  // const [skill, setSkill] = useState("");
-  // const [description, setDescription] = useState("");
+  const [selectedGame, setSelectedGame] = useState("");
+  const [skill, setSkill] = useState("");
+  const [description, setDescription] = useState("");
   const ref = firebase.firestore().collection("activities");
 
   // GET FUNCTION TO PULL THE FIELDS OF THE REQUESTED ACTIVITY
@@ -32,25 +27,25 @@ export default function ViewActivity() {
     console.log(activity);
   }, []);
 
-  // // DELETE FUNCTION
-  // function deleteActivity(activity) {
-  //   ref
-  //     .doc(id)
-  //     .delete()
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
+  // DELETE FUNCTION
+  function deleteActivity(activity) {
+    ref
+      .doc(id)
+      .delete()
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
-  // // EDIT FUNCTION
-  // function editActivity(updatedActivity) {
-  //   ref
-  //     .doc(id)
-  //     .update(updatedActivity)
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
+  // EDIT FUNCTION
+  function editActivity(updatedActivity) {
+    ref
+      .doc(id)
+      .update(updatedActivity)
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
     <>
@@ -79,11 +74,10 @@ export default function ViewActivity() {
           <label className="view__subheader" htmlFor="description">
             Description:
           </label>
-          <input className="view__input" type="text" id="description" name="description" value={activity.description} />
+          <textarea className="view__input" type="text" id="description" name="description" value={activity.description} />
         </div>
-        {/* <Link to={`/activities/${id}/edit`}>
-          <button onClick={() => editActivity({ selectedGame: activity.selectedGame, skill: activity.skill, description, id })}>Edit</button>
-        </Link> */}
+        <button onClick={() => deleteActivity(activity)}>X</button>
+        <button onClick={() => editActivity({ selectedGame: activity.selectedGame, skill: activity.skill, description, id })}>Edit</button>
         <h2>Conversation</h2>
       </div>
     </>

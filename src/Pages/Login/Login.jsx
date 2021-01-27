@@ -25,6 +25,7 @@ function Login() {
     try {
       setError("");
       await fire.auth().createUserWithEmailAndPassword(emailRef.current.value, passwordRef.current.value);
+
       history.push("/");
     } catch {
       setError("Failed to create an account");
@@ -32,7 +33,7 @@ function Login() {
   }
 
   // this.authListener();
-  // console.log(this.props);
+
   return (
     <section className="login">
       <Link to="/">Home</Link>
@@ -57,7 +58,7 @@ function Login() {
       </form>
       <div className="login__redirect">
         <p>
-          Don't have an account? <a href="localhost:3000">Sign Up Here.</a>
+          Don't have an account? <a href="/signup">Sign Up Here.</a>
         </p>
       </div>
     </section>

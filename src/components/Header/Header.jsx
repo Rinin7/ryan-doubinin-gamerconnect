@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import fire from "../../config/Fire";
 import "./Header.scss";
 
-export default function Header({ searchHandler }) {
+export default function Header({ searchHandler, username }) {
   const history = useHistory();
 
   function logout() {
@@ -35,7 +35,7 @@ export default function Header({ searchHandler }) {
         />
       </div>
       <div className="header__user-container">
-        <h4 className="header__user">USERNAME</h4>
+        <h4 className="header__user">{username ? username : "Not Logged In"}</h4>
         <button className="header__logout" onClick={logout}>
           Logout
         </button>
