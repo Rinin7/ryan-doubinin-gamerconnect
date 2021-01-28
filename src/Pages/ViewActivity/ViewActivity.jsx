@@ -2,24 +2,26 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import fire from "../../config/Fire";
 import firebase from "firebase";
-import Header from "../../components/Header/Header";
 import "./ViewActivity.scss";
 
-export default function ViewActivity() {
+export default function ViewActivity({ user, username }) {
   const { id } = useParams();
   const db = fire.firestore();
   const [activity, setActivity] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
   // const [selectedGame, setSelectedGame] = useState("");
   // const [skill, setSkill] = useState("");
   // const [description, setDescription] = useState("");
   const ref = firebase.firestore().collection("activities");
+  // const uid = user.uid;
 
   // GET FUNCTION TO PULL THE FIELDS OF THE REQUESTED ACTIVITY
   function getActivity() {
     db.doc(`activities/${id}`)
       .get()
       .then((document) => {
-        setActivity(document.data());
+        setActivity({ ...document.data(), timestamp: document.data().timestamp.toDate() });
         console.log(document.data());
       })
       .catch((error) => {
@@ -31,6 +33,39 @@ export default function ViewActivity() {
     getActivity();
     console.log(activity);
   }, []);
+
+  useEffect(() => {
+    db.doc(`activities/${id}`)
+      .collection("messages")
+      .orderBy("createdAt")
+      .limit(100)
+      .onSnapshot((querySnapshot) => {
+        const data = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        console.log(data);
+        setMessages(data);
+      });
+  }, []);
+
+  const handleOnChange = (event) => {
+    setNewMessage(event.target.value);
+  };
+
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
+
+    if (db) {
+      db.doc(`activities/${id}`).collection("messages").add({
+        text: newMessage,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        username,
+      });
+    }
+
+    setNewMessage("");
+  };
 
   // // DELETE FUNCTION
   // function deleteActivity(activity) {
@@ -54,9 +89,8 @@ export default function ViewActivity() {
 
   return (
     <>
-      <Header />
       <div className="view" key={activity.id}>
-        <h1 className="view__header">View Comment</h1>
+        <h1 className="view__header">View Activity</h1>
         <div className="view__content-container" key={id}>
           <label className="view__subheader" htmlFor="host">
             Host:
@@ -85,6 +119,19 @@ export default function ViewActivity() {
           <button onClick={() => editActivity({ selectedGame: activity.selectedGame, skill: activity.skill, description, id })}>Edit</button>
         </Link> */}
         <h2>Conversation</h2>
+        <ul>
+          {messages.map((message) => (
+            <li key={message.id}>
+              {message.username}: {message.text}
+            </li>
+          ))}
+        </ul>
+        <form onSubmit={handleOnSubmit}>
+          <input type="text" value={newMessage} onChange={handleOnChange} placeholder="Chat with the lobby here..." />
+          <button type="submit" disabled={!newMessage}>
+            Send
+          </button>
+        </form>
       </div>
     </>
   );

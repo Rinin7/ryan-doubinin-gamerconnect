@@ -14,17 +14,28 @@ function Home() {
   // const history = useHistory();
   const [searchTerm, setSearchTerm] = useState("");
 
-  // let gameSearch = (e) => {
-  //   setSearchTerm(e);
-  // };
+  let gameSearch = (e) => {
+    setSearchTerm(e);
+  };
 
   function getActivities() {
-    db.collection("activities")
-      .get()
-      .then((querySnapshot) => {
-        const post = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-        setActivities(post);
-        console.log({ post });
+    return db
+      .collection("activities")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((querySnapshot) => {
+        let posts = [];
+
+        querySnapshot.forEach((doc) => {
+          posts.push({
+            ...doc.data(),
+            timestamp: doc.data().timestamp.toDate().toString(),
+            id: doc.id,
+          });
+        });
+
+        // const posts = querySnapshot.docs.map((doc) => ({ ...doc.data(), timestamp: doc.data().timestamp.toDate().toString(), id: doc.id }));
+        setActivities(posts);
+        // console.log({ posts });
       });
   }
 
@@ -40,8 +51,8 @@ function Home() {
 
   useEffect(() => {
     getGames();
-    getActivities();
-    console.log(activities);
+    console.log("from useEffect");
+    return getActivities();
   }, []);
 
   // if (loading) {
@@ -51,13 +62,13 @@ function Home() {
   return (
     <div className="home">
       {/* <Header searchHandler={gameSearch} /> */}
-      {/* <input
+      <input
         type="text"
         placeholder="Search..."
         onChange={(event) => {
           setSearchTerm(event.target.value);
         }}
-      /> */}
+      />
       <div className="home__gamelist">
         {games
           .filter((val) => {

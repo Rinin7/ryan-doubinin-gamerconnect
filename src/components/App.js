@@ -43,12 +43,15 @@ function App() {
       db.doc(`users/${user.uid}`)
         .get()
         .then((documentSnapshot) => {
-          setUsername(documentSnapshot.data().username);
+          const data = documentSnapshot.data();
+          if (data && data.username) {
+            setUsername(documentSnapshot.data().username);
+          }
         });
     }
 
     // fire.auth().currentUser
-  }, []);
+  }, [user]);
 
   const handleLogin = (user) => {
     setUser(user);
@@ -75,8 +78,8 @@ function App() {
           <Route path="/login" exact component={(routerProps) => <Login {...routerProps} user={user} handler={handleLogin} />} />
           <Route path="/signup" exact component={(routerProps) => <Signup {...routerProps} user={user} handler={handleLogin} />} />
           <PrivateRoute path="/" exact component={(routerProps) => <Home {...routerProps} user={user} />} />
-          <PrivateRoute path="/create" exact component={(routerProps) => <CreateActivity {...routerProps} user={user} />} />
-          <PrivateRoute path="/activities/:id" exact component={(routerProps) => <ViewActivity {...routerProps} user={user} />} />
+          <PrivateRoute path="/create" exact component={(routerProps) => <CreateActivity {...routerProps} user={user} username={username} />} />
+          <PrivateRoute path="/activities/:id" exact component={(routerProps) => <ViewActivity {...routerProps} user={user} username={username} />} />
           <PrivateRoute path="/activities/:id/edit" exact component={(routerProps) => <ViewActivity {...routerProps} user={user} />} />
         </Switch>
       </div>

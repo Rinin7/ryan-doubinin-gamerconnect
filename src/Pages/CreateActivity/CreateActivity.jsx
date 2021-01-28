@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import fire from "../../config/Fire";
 import firebase from "firebase";
 import "./CreateActivity.scss";
-import Header from "../../components/Header/Header";
 
-export default function CreateActivity({ user }) {
+export default function CreateActivity({ user, username }) {
   const db = fire.firestore();
+  const history = useHistory();
   // const [user, setUser] = useState("");
   const [games, setGames] = useState([]);
   const [selectedGame, setSelectedGame] = useState("");
@@ -14,11 +14,19 @@ export default function CreateActivity({ user }) {
   const [skill, setSkill] = useState("");
   const [description, setDescription] = useState("");
   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+  // const timestamp = new Date(timeInMilliseconds).toLocaleString();
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    db.collection("activities").add({ skill, description, timestamp, selectedGame, host: user.uid });
+    db.collection("activities")
+      .add({ skill, description, timestamp, selectedGame, host: username })
+      .then((res) => {
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   function getGames() {
@@ -40,7 +48,6 @@ export default function CreateActivity({ user }) {
 
   return (
     <>
-      <Header />
       <div className="create">
         <h1 className="create__header">Create an Activity</h1>
         <form className="create__form" onSubmit={handleSubmit}>
@@ -53,7 +60,7 @@ export default function CreateActivity({ user }) {
               </label>
               <select className="create__form-select" value={selectedGame} onChange={(event) => setSelectedGame(event.target.value)} name="game" id="game">
                 {games.map((game) => (
-                  <option value={game.id} key={game.id}>
+                  <option value={game.title} key={game.id}>
                     {game.title}
                   </option>
                 ))}
