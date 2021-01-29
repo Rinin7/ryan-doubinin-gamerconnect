@@ -22,7 +22,7 @@ function App() {
         setUser(user);
         localStorage.setItem("isAuthenticated", "true");
         // console.log("localStorage", localStorage.getItem("isAuthenticated"));
-        console.log({ user });
+        // console.log({ user });
         // console.log(newUsername);
       } else {
         setUser(null);

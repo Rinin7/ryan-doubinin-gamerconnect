@@ -10,6 +10,7 @@ export default function ViewActivity({ user, username }) {
   const [activity, setActivity] = useState([]);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  console.log(user);
   // const [selectedGame, setSelectedGame] = useState("");
   // const [skill, setSkill] = useState("");
   // const [description, setDescription] = useState("");
