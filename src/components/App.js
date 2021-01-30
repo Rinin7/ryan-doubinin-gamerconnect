@@ -5,6 +5,8 @@ import CreateActivity from "../Pages/CreateActivity/CreateActivity";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Login from "../Pages/Login/Login";
 import ViewActivity from "../Pages/ViewActivity/ViewActivity";
+import EditActivity from "../Pages/EditActivity/EditActivity";
+import MyActivities from "../Pages/MyActivities/MyActivities";
 import Signup from "../Pages/Signup/Signup";
 import Header from "../components/Header/Header";
 
@@ -78,9 +80,10 @@ function App() {
           <Route path="/login" exact component={(routerProps) => <Login {...routerProps} user={user} handler={handleLogin} />} />
           <Route path="/signup" exact component={(routerProps) => <Signup {...routerProps} user={user} handler={handleLogin} />} />
           <PrivateRoute path="/" exact component={(routerProps) => <Home {...routerProps} user={user} />} />
+          <PrivateRoute path="/myactivities" exact component={(routerProps) => <MyActivities {...routerProps} user={user} username={username} />} />
           <PrivateRoute path="/create" exact component={(routerProps) => <CreateActivity {...routerProps} user={user} username={username} />} />
           <PrivateRoute path="/activities/:id" exact component={(routerProps) => <ViewActivity {...routerProps} user={user} username={username} />} />
-          <PrivateRoute path="/activities/:id/edit" exact component={(routerProps) => <ViewActivity {...routerProps} user={user} />} />
+          <PrivateRoute path="/activities/:id/edit" exact component={(routerProps) => <EditActivity {...routerProps} user={user} username={username} />} />
         </Switch>
       </div>
     </BrowserRouter>

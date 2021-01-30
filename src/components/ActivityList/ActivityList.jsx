@@ -1,7 +1,7 @@
 import React from "react";
 import "./ActivityList.scss";
 
-export default function ActivityList({ activityList }) {
+export default function ActivityList({ activityList, timeSince }) {
   let { id, selectedGame, host, skill, timestamp, description } = activityList;
 
   return (

@@ -22,9 +22,11 @@ export default function Header({ searchHandler, username }) {
         <Link to="/">
           <h4 className="header__nav-feed">Feed</h4>
         </Link>
-        <h4 className="header__nav-personal">My Activities</h4>
+        <Link to="/myactivities">
+          <h4 className="header__nav-personal">My Activities</h4>
+        </Link>
       </div>
-      <div className="header__searchbar-container">
+      {/* <div className="header__searchbar-container">
         <input
           className="header__searchbar"
           type="text"
@@ -33,7 +35,7 @@ export default function Header({ searchHandler, username }) {
             searchHandler(e.target.value);
           }}
         />
-      </div>
+      </div> */}
       <div className="header__user-container">
         <h4 className="header__user">{username ? username : "Not Logged In"}</h4>
         <button className="header__logout" onClick={logout}>

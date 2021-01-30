@@ -6,10 +6,16 @@ export default function GameList({ gameList, clickGamesHandler }) {
 
   return (
     // <div className="games" >
-    <button className="games__card" key={id} value={title} onClick={clickGamesHandler}>
+    <div
+      className="games__card"
+      id={title}
+      onClick={() => {
+        clickGamesHandler(title);
+      }}
+    >
       <img className="games__image" src={imageUrl} />
       <h2 className="games__title">{title}</h2>
-    </button>
+    </div>
     // </div>
   );
 }

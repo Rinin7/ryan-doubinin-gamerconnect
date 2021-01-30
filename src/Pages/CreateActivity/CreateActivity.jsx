@@ -20,7 +20,7 @@ export default function CreateActivity({ user, username }) {
     event.preventDefault();
 
     db.collection("activities")
-      .add({ skill, description, timestamp, selectedGame, host: username })
+      .add({ skill, description, timestamp, selectedGame, host: username, hostId: user.uid })
       .then((res) => {
         history.push("/");
       })
@@ -59,11 +59,14 @@ export default function CreateActivity({ user, username }) {
                 Game
               </label>
               <select className="create__form-select" value={selectedGame} onChange={(event) => setSelectedGame(event.target.value)} name="game" id="game">
-                {games.map((game) => (
-                  <option value={game.title} key={game.id}>
-                    {game.title}
-                  </option>
-                ))}
+                <option value="">Please select...</option>
+                {games
+                  .filter((game) => (game.title.includes("All") ? "" : game.title))
+                  .map((game) => (
+                    <option value={game.title} key={game.id}>
+                      {game.title}
+                    </option>
+                  ))}
               </select>
               {/* <img className="create_form-game-img" src> */}
             </div>
@@ -72,6 +75,7 @@ export default function CreateActivity({ user, username }) {
                 Skill
               </label>
               <select className="create__form-select" onChange={(event) => setSkill(event.target.value)} id="skill" name="skill">
+                <option value="">Please select...</option>
                 <option value="Learning">Learning</option>
                 <option value="Advanced">Advanced</option>
                 <option value="Pro">Pro</option>
@@ -80,7 +84,14 @@ export default function CreateActivity({ user, username }) {
               <label className="create__form-label" htmlFor="description">
                 Description
               </label>
-              <textarea className="create__form-input" type="text" id="description" name="description" onChange={(event) => setDescription(event.target.value)} />
+              <textarea
+                className="create__form-input"
+                type="text"
+                id="description"
+                name="description"
+                onChange={(event) => setDescription(event.target.value)}
+                placeholder="Enter a description here..."
+              />
             </div>
           </div>
           <button type="submit">Submit</button>

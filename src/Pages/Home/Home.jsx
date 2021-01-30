@@ -37,7 +37,8 @@ function Home() {
           querySnapshot.forEach((doc) => {
             posts.push({
               ...doc.data(),
-              timestamp: doc.data().timestamp.toDate().toString(),
+              // timestamp: doc.data().timestamp.toDate().toString(),
+              timestamp: timeSince(doc.data().timestamp.seconds * 1000),
               id: doc.id,
             });
           });
@@ -58,9 +59,11 @@ function Home() {
           querySnapshot.forEach((doc) => {
             posts.push({
               ...doc.data(),
-              timestamp: doc.data().timestamp.toDate().toString(),
+              // timestamp: doc.data().timestamp.toDate().toString(),
+              timestamp: timeSince(doc.data().timestamp.seconds * 1000),
               id: doc.id,
             });
+            console.log(doc.data().timestamp.seconds);
           });
 
           // const posts = querySnapshot.docs.map((doc) => ({ ...doc.data(), timestamp: doc.data().timestamp.toDate().toString(), id: doc.id }));
@@ -88,27 +91,56 @@ function Home() {
     return getActivities();
   }, [clickedGames]);
 
-  const clickGamesHandler = (event) => {
-    // console.log(event.target.value);
-    // let clicked;
-
-    // if (event.target.value === "All") {
-    //   clicked = games.forEach((game) => game.title);
-    // } else {
-    //   clicked = event.target.value;
-    // }
-
-    setClickedGames(event.target.value);
-    // console.log(event.target.value);
+  const clickGamesHandler = (id) => {
+    console.log(id);
+    // event.stopPropagation();
+    setClickedGames(id);
   };
 
   // if (loading) {
   //   return <h1>Loading...</h1>;
   // }
 
+  // FUNCTION TO CHANGE TIMESTAMP
+  const timeSince = (date) => {
+    let currentTime = Date.now();
+    let difference = currentTime - date;
+    let num = 0;
+
+    const minute = 60000;
+    const hour = 3600000;
+    const day = 86400000;
+    const week = 604800000;
+    const month = 2592000000;
+    const year = 31556952000;
+
+    const timeBeforeNow = "moments ago";
+
+    if (difference < minute) {
+      return timeBeforeNow;
+    } else if (difference < hour) {
+      num = Math.floor(difference / minute);
+      return num === 1 ? `${num} min ago` : `${num} mins ago`;
+    } else if (difference < day) {
+      num = Math.floor(difference / hour);
+      return num === 1 ? `${num} hour ago` : `${num} hours ago`;
+    } else if (difference < week) {
+      num = Math.floor(difference / day);
+      return num === 1 ? `${num} day ago` : `${num} days ago`;
+    } else if (difference < month) {
+      num = Math.floor(difference / week);
+      return num === 1 ? `${num} week ago` : `${num} weeks ago`;
+    } else if (difference < year) {
+      num = Math.floor(difference / month);
+      return num === 1 ? `${num} month ago` : `${num} months ago`;
+    } else if (difference > year) {
+      num = Math.floor(difference / year);
+      return num === 1 ? `${num} year ago` : `${num} years ago`;
+    }
+  };
+
   return (
     <div className="home">
-      {/* <Header searchHandler={gameSearch} /> */}
       <input
         type="text"
         placeholder="Search..."
@@ -133,7 +165,9 @@ function Home() {
         <GameList key={result.id} gameList={result}
       ))} */}
       </div>
-      <h1>Feed</h1>
+      <h1>
+        Displaying {activities.length} posts for {clickedGames}
+      </h1>
       <Link to="/create">
         <button>Create</button>
       </Link>
@@ -142,7 +176,7 @@ function Home() {
           // .filter((activity) => activity.selectedGame === clickedGames)
           .map((activity) => (
             <Link to={`/activities/${activity.id}`}>
-              <ActivityList key={activity.id} activityList={activity} />
+              <ActivityList key={activity.id} activityList={activity} timeSince={timeSince} />
             </Link>
           ))}
       </div>
