@@ -4,6 +4,16 @@
 
 body {
   margin: 0;
-  font-family: "Avenir", "Roboto", sans-serif;
-  color: #323232;
+  font-family: "Oswald", sans-serif;
+  color: black;
+  background-color: $nuetral-color;
+}
+
+a {
+  color: white;
+
+  &:active,
+  &:focus {
+    color: white;
+  }
 }

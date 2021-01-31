@@ -141,13 +141,19 @@ function Home() {
 
   return (
     <div className="home">
-      <input
-        type="text"
-        placeholder="Search..."
-        onChange={(event) => {
-          setSearchTerm(event.target.value);
-        }}
-      />
+      <div className="home__utility">
+        <input
+          className="home__search"
+          type="text"
+          placeholder="Search..."
+          onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }}
+        />
+        <Link to="/create">
+          <button className="home__create-button">+</button>
+        </Link>
+      </div>
       <div className="home__gamelist">
         {games
           .filter((val) => {
@@ -166,11 +172,9 @@ function Home() {
       ))} */}
       </div>
       <h1>
-        Displaying {activities.length} posts for {clickedGames}
+        {clickedGames} - {activities.length} posts
       </h1>
-      <Link to="/create">
-        <button>Create</button>
-      </Link>
+
       <div className="home__feed">
         {activities
           // .filter((activity) => activity.selectedGame === clickedGames)
