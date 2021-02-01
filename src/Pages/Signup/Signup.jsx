@@ -76,7 +76,7 @@ function Signup({ user }) {
   // console.log(this.props);
   return (
     <section className="login">
-      <Link to="/">Home</Link>
+      {/* <Link to="/">Home</Link> */}
       <form className="login__form">
         <h1 className="login__header">Sign Up</h1>
         <label className="login__form-title" htmlFor="email">
@@ -93,13 +93,16 @@ function Signup({ user }) {
         <input className="login__form-input" type="password" id="password" name="password" placeholder="Choose a password" ref={passwordRef} />
         {/* <label className="login__form-title" htmlFor="confirm">Password Confirmation</label>
           <input className="login__form-input" type="password" value={this.state.confirmPassword} onChange={this.handleChange} id="confirm" name="confirm" placeholder="Confirm Password here" /> */}
-        <button className="login__form-submit" type="submit" onClick={signupActions}>
+        <button className="login__form-signup" type="submit" onClick={signupActions}>
           Sign Up
         </button>
       </form>
       <div className="login__redirect">
         <p>
-          Already have an account? <a href="/">Log In Here.</a>
+          Already have an account?{" "}
+          <a className="signup__login-link" href="/">
+            Log In Here.
+          </a>
         </p>
       </div>
     </section>

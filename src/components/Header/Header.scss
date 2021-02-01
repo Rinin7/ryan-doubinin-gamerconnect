@@ -10,14 +10,16 @@
   padding: 0 5%;
   text-decoration: none;
   flex-direction: column;
+  position: fixed;
+  top: 0;
 
   @include tablet {
     padding: 0 3.125%;
   }
 
-  @include desktop {
-    padding: 0 12.5%;
-  }
+  // @include desktop {
+  //   padding: 0 12.5%;
+  // }
 
   &__logo-container {
     display: flex;
@@ -34,7 +36,7 @@
 
     @include tablet {
       display: inline;
-      padding-right: 5.5%;
+      padding-right: 39.5px;
     }
   }
 
@@ -134,9 +136,9 @@
     right: 3.125%;
   }
 
-  @include desktop {
-    right: 12.5%;
-  }
+  // @include desktop {
+  //   right: 12.5%;
+  // }
 }
 #menuToggle a {
   text-decoration: none;

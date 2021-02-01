@@ -36,29 +36,32 @@ function Login() {
 
   return (
     <section className="login">
-      <Link to="/">Home</Link>
+      {/* <Link to="/">Home</Link> */}
       <form className="login__form">
         <h1 className="login__header">Log In</h1>
         <label className="login__form-title" htmlFor="email">
           Email
         </label>
-        <input className="login__form-input" type="email" id="email" name="email" placeholder="Email Address here" ref={emailRef} />
+        <input className="login__form-input" type="email" id="email" name="email" placeholder="Enter your email" ref={emailRef} />
         <label className="login__form-title" htmlFor="password">
           Password
         </label>
-        <input className="login__form-input" type="password" id="password" name="password" placeholder="Enter a password" ref={passwordRef} />
+        <input className="login__form-input" type="password" id="password" name="password" placeholder="Enter your password" ref={passwordRef} />
         {/* <label className="login__form-title" htmlFor="confirm">Password Confirmation</label>
           <input className="login__form-input" type="password" value={this.state.confirmPassword} onChange={this.handleChange} id="confirm" name="confirm" placeholder="Confirm Password here" /> */}
         <button className="login__form-submit" type="submit" onClick={login}>
           Log In
         </button>
-        <button className="login__form-submit" type="submit" onClick={signup}>
+        {/* <button className="login__form-submit" type="submit" onClick={signup}>
           Sign Up
-        </button>
+        </button> */}
       </form>
       <div className="login__redirect">
         <p>
-          Don't have an account? <a href="/signup">Sign Up Here.</a>
+          Don't have an account?{" "}
+          <a className="login__signup-link" href="/signup">
+            Sign Up Here.
+          </a>
         </p>
       </div>
     </section>

@@ -90,51 +90,60 @@ export default function EditActivity({ username }) {
     console.log(event.target.value);
   };
 
+  function renderSelectedGame() {
+    if (selectedGame !== "" && games.length !== 0) {
+      const current = games.find((game) => game.title === selectedGame);
+      return <img className="create__form-image" src={current.imageUrl} />;
+    }
+  }
+
   return (
     <>
-      <div className="view" key={activity.id}>
-        <h1 className="view__header">Edit Activity</h1>
-        <form className="create__form" onSubmit={editActivity}>
-          <div className="view__content-container" key={id}>
-            {/* <label className="view__subheader" htmlFor="host">
-              Host:
-            </label>
-            <input className="view__input" type="text" id="host" name="host" value={activity.host} /> */}
-            <div className="activity__info-container">
-              <label className="view__subheader" htmlFor="game">
+      <div className="edit" key={activity.id}>
+        <div className="edit__header-container">
+          <h1 className="edit__header">Edit Activity</h1>
+        </div>
+        <form className="edit__form" onSubmit={editActivity}>
+          <div className="edit__form-container">
+            <div className="activity__form-game">
+              <label className="edit__form-label" htmlFor="game">
                 Game:
               </label>
-              <select className="view__input" value={selectedGame} onChange={handleGameChange} name="game" id="game">
-                {games
-                  .filter((game) => (game.title.includes("All") ? "" : game.title))
-                  .map((game) => (
-                    <option value={game.title} key={game.id}>
-                      {game.title}
-                    </option>
-                  ))}
-              </select>
-              {/* <input className="view__input" type="text" id="game" name="game" value={selectedGame} onChange={handleGameChange} /> */}
-              {/* <label className="view__subheader" htmlFor="timestamp">
-                Posted:
-              </label>
-              <input className="view__input" type="text" id="timestamp" name="timestamp" value={activity.timestamp} /> */}
+              <div className="edit__form-game-line">
+                {renderSelectedGame()}
+                <select className="edit__form-select" value={selectedGame} onChange={handleGameChange} name="game" id="game">
+                  {games
+                    .filter((game) => (game.title.includes("All") ? "" : game.title))
+                    .map((game) => (
+                      <option value={game.title} key={game.id}>
+                        {game.title}
+                      </option>
+                    ))}
+                </select>
+              </div>
             </div>
-            <label className="view__subheader" htmlFor="skill">
+            <label className="edit__form-label" htmlFor="skill">
               Skill:
             </label>
-            <select className="view__input" onChange={handleSkillChange} id="skill" name="skill">
+            <select className="edit__form-select" onChange={handleSkillChange} id="skill" name="skill">
               <option value="Learning">Learning</option>
               <option value="Advanced">Advanced</option>
               <option value="Pro">Pro</option>
             </select>
-            {/* <input className="view__input" type="text" id="skill" name="skill" value={skill} onChange={handleSkillChange} /> */}
-            <label className="view__subheader" htmlFor="description">
+
+            <label className="edit__form-label" htmlFor="description">
               Description:
             </label>
-            <textarea className="view__input" type="text" id="description" name="description" value={description} onChange={handleDescriptionChange} />
+            <textarea className="edit__form-input" type="text" id="description" name="description" value={description} onChange={handleDescriptionChange} />
           </div>
-
-          <button type="submit">Submit</button>
+          <div className="edit__button-container">
+            <button className="edit__button-submit" type="submit">
+              Submit
+            </button>
+            <a href="/" className="edit__button-cancel">
+              CANCEL
+            </a>
+          </div>
         </form>
       </div>
     </>

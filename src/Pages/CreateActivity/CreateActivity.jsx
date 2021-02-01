@@ -10,6 +10,7 @@ export default function CreateActivity({ user, username }) {
   // const [user, setUser] = useState("");
   const [games, setGames] = useState([]);
   const [selectedGame, setSelectedGame] = useState("");
+  const [gamePicture, setGamePicture] = useState("");
   // const [title, setTitle] = useState("");
   const [skill, setSkill] = useState("");
   const [description, setDescription] = useState("");
@@ -39,9 +40,17 @@ export default function CreateActivity({ user, username }) {
       });
   }
 
+  function renderSelectedGame() {
+    if (selectedGame !== "") {
+      const current = games.find((game) => game.title === selectedGame);
+      return <img className="create__form-image" src={current.imageUrl} />;
+    }
+  }
+
   useEffect(() => {
     if (games.length === 0) {
       getGames();
+      // getGameImage();
     }
     console.log(games);
   }, []);
@@ -49,26 +58,30 @@ export default function CreateActivity({ user, username }) {
   return (
     <>
       <div className="create">
-        <h1 className="create__header">Create an Activity</h1>
+        <div className="create__header-container">
+          <h1 className="create__header">Create Activity</h1>
+        </div>
         <form className="create__form" onSubmit={handleSubmit}>
-          {/* <label htmlFor="title">Title</label>
-        <input type="text" id="title" name="title" onChange={(event) => setTitle(event.target.value)} /> */}
           <div className="create__form-container">
             <div className="create__form-game">
               <label className="create__form-label" htmlFor="game">
                 Game
               </label>
-              <select className="create__form-select" value={selectedGame} onChange={(event) => setSelectedGame(event.target.value)} name="game" id="game">
-                <option value="">Please select...</option>
-                {games
-                  .filter((game) => (game.title.includes("All") ? "" : game.title))
-                  .map((game) => (
-                    <option value={game.title} key={game.id}>
-                      {game.title}
-                    </option>
-                  ))}
-              </select>
-              {/* <img className="create_form-game-img" src> */}
+              <div className="create__form-game-line">
+                {renderSelectedGame()}
+                <select className="create__form-select" value={selectedGame} onChange={(event) => setSelectedGame(event.target.value)} name="game" id="game">
+                  <option value="">Please select...</option>
+                  {games
+                    .filter((game) => (game.title.includes("All") ? "" : game.title))
+                    .map((game) => (
+                      <>
+                        <option value={game.title} key={game.id}>
+                          {game.title}
+                        </option>
+                      </>
+                    ))}
+                </select>
+              </div>
             </div>
             <div className="create__form-info">
               <label className="create__form-label" htmlFor="skill">
@@ -80,7 +93,7 @@ export default function CreateActivity({ user, username }) {
                 <option value="Advanced">Advanced</option>
                 <option value="Pro">Pro</option>
               </select>
-              {/* <textarea className="create__form-input" type="text" id="skill" name="skill" onChange={(event) => setSkill(event.target.value)} /> */}
+
               <label className="create__form-label" htmlFor="description">
                 Description
               </label>
@@ -94,7 +107,14 @@ export default function CreateActivity({ user, username }) {
               />
             </div>
           </div>
-          <button type="submit">Submit</button>
+          <div className="create__button-container">
+            <button className="create__button-submit" type="submit">
+              Submit
+            </button>
+            <a href="/" className="create__button-cancel">
+              CANCEL
+            </a>
+          </div>
         </form>
       </div>
     </>

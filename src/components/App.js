@@ -75,7 +75,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Header username={username} />
+        <Header username={username} user={user} />
         <Switch>
           <Route path="/login" exact component={(routerProps) => <Login {...routerProps} user={user} handler={handleLogin} />} />
           <Route path="/signup" exact component={(routerProps) => <Signup {...routerProps} user={user} handler={handleLogin} />} />

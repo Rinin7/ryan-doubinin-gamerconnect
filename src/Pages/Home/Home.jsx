@@ -81,7 +81,6 @@ function Home() {
       .then((querySnapshot) => {
         const items = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         setGames(items);
-        // console.log({ games });
       });
   }
 
@@ -171,7 +170,7 @@ function Home() {
         <GameList key={result.id} gameList={result}
       ))} */}
       </div>
-      <h1>
+      <h1 className="home__posts-header">
         {clickedGames} - {activities.length} posts
       </h1>
 
@@ -179,8 +178,8 @@ function Home() {
         {activities
           // .filter((activity) => activity.selectedGame === clickedGames)
           .map((activity) => (
-            <Link to={`/activities/${activity.id}`}>
-              <ActivityList key={activity.id} activityList={activity} timeSince={timeSince} />
+            <Link className="home__activitylist-link" to={`/activities/${activity.id}`}>
+              <ActivityList key={activity.id} activityList={activity} timeSince={timeSince} games={games} />
             </Link>
           ))}
       </div>
