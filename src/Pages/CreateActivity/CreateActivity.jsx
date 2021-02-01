@@ -109,7 +109,7 @@ export default function CreateActivity({ user, username }) {
           </div>
           <div className="create__button-container">
             <button className="create__button-submit" type="submit">
-              Submit
+              SUBMIT
             </button>
             <a href="/" className="create__button-cancel">
               CANCEL

@@ -31,12 +31,18 @@
     // padding: 0 5%;
     width: 100%;
 
-    // &-container {
-    //   display: flex;
-    //   align-items: center;
-    //   // border-bottom: 5px solid $primary-color;
-    //   padding-bottom: 40px;
-    // }
+    @include tablet {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &-container {
+      @include tablet {
+        width: 70%;
+      }
+    }
 
     &-game {
       display: flex;
@@ -128,13 +134,13 @@
     right: 0;
     bottom: 0;
     left: 0;
-
     padding: 0 16px 24px;
 
     @include tablet {
       padding-top: 40px;
       flex-direction: row-reverse;
       align-items: center;
+      position: unset;
     }
   }
 

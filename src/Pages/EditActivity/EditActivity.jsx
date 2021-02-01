@@ -138,7 +138,7 @@ export default function EditActivity({ username }) {
           </div>
           <div className="edit__button-container">
             <button className="edit__button-submit" type="submit">
-              Submit
+              SUBMIT
             </button>
             <a href="/" className="edit__button-cancel">
               CANCEL
