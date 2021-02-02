@@ -1,32 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./Home.scss";
 import fire from "../../config/Fire";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ActivityList from "../../components/ActivityList/ActivityList";
 import GameList from "../../components/GameList/GameList";
-import Header from "../../components/Header/Header";
 
 function Home() {
   const [games, setGames] = useState([]);
   const [activities, setActivities] = useState([]);
-  // const [loading, setLoading] = useState(false);
   const db = fire.firestore();
-  // const history = useHistory();
   const [searchTerm, setSearchTerm] = useState("");
   const [clickedGames, setClickedGames] = useState("All");
 
-  let gameSearch = (e) => {
-    setSearchTerm(e);
-  };
+  // function allGamesFunction() {
+  //   let allGames = games.map((game) => game.title);
+  //   return allGames;
+  // }
 
-  function allGamesFunction() {
-    let allGames = games.map((game) => game.title);
-    return allGames;
-  }
-
+  // FUNCTION TO GET ALL ACTIVITIES AND USE SELECTED GAMES TO FILTER ACTIVITIES DISPLAYED
   function getActivities() {
-    console.log(clickedGames);
-    // const where = clickedGames === "All" ? "" : ["selectedGame", "==", clickedGames];
     if (clickedGames === "All") {
       return db
         .collection("activities")
@@ -37,16 +29,11 @@ function Home() {
           querySnapshot.forEach((doc) => {
             posts.push({
               ...doc.data(),
-              // timestamp: doc.data().timestamp.toDate().toString(),
               timestamp: timeSince(doc.data().timestamp.seconds * 1000),
               id: doc.id,
             });
           });
-
-          // const posts = querySnapshot.docs.map((doc) => ({ ...doc.data(), timestamp: doc.data().timestamp.toDate().toString(), id: doc.id }));
           setActivities(posts);
-          console.log(posts);
-          // console.log({ posts });
         });
     } else {
       return db
@@ -59,21 +46,16 @@ function Home() {
           querySnapshot.forEach((doc) => {
             posts.push({
               ...doc.data(),
-              // timestamp: doc.data().timestamp.toDate().toString(),
               timestamp: timeSince(doc.data().timestamp.seconds * 1000),
               id: doc.id,
             });
-            console.log(doc.data().timestamp.seconds);
           });
-
-          // const posts = querySnapshot.docs.map((doc) => ({ ...doc.data(), timestamp: doc.data().timestamp.toDate().toString(), id: doc.id }));
           setActivities(posts);
-          console.log(posts);
-          // console.log({ posts });
         });
     }
   }
 
+  // FUNCTION TO GET GAME COLLECTION DATA
   function getGames() {
     db.collection("games")
       .orderBy("title")
@@ -86,21 +68,15 @@ function Home() {
 
   useEffect(() => {
     getGames();
-    // console.log("from useEffect");
     return getActivities();
   }, [clickedGames]);
 
+  // FUNCTION THAT HANDLES ONCLICK ON GAMES
   const clickGamesHandler = (id) => {
-    console.log(id);
-    // event.stopPropagation();
     setClickedGames(id);
   };
 
-  // if (loading) {
-  //   return <h1>Loading...</h1>;
-  // }
-
-  // FUNCTION TO CHANGE TIMESTAMP
+  // FUNCTION TO CHANGE TIMESTAMP TO "TIME SINCE" POSTED
   const timeSince = (date) => {
     let currentTime = Date.now();
     let difference = currentTime - date;
@@ -165,23 +141,16 @@ function Home() {
           .map((game) => (
             <GameList key={game.id} gameList={game} clickGamesHandler={clickGamesHandler} />
           ))}
-
-        {/* {searchResults.map((result) => (
-        <GameList key={result.id} gameList={result}
-      ))} */}
       </div>
       <h1 className="home__posts-header">
         {clickedGames} - {activities.length} posts
       </h1>
-
       <div className="home__feed">
-        {activities
-          // .filter((activity) => activity.selectedGame === clickedGames)
-          .map((activity) => (
-            <Link className="home__activitylist-link" to={`/activities/${activity.id}`}>
-              <ActivityList key={activity.id} activityList={activity} timeSince={timeSince} games={games} />
-            </Link>
-          ))}
+        {activities.map((activity) => (
+          <Link className="home__activitylist-link" to={`/activities/${activity.id}`}>
+            <ActivityList key={activity.id} activityList={activity} timeSince={timeSince} games={games} />
+          </Link>
+        ))}
       </div>
     </div>
   );

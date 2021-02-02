@@ -17,10 +17,6 @@
     padding: 0 3.125%;
   }
 
-  // @include desktop {
-  //   padding: 0 12.5%;
-  // }
-
   &__logo-container {
     display: flex;
     justify-content: center;
@@ -135,10 +131,6 @@
     top: 40px;
     right: 3.125%;
   }
-
-  // @include desktop {
-  //   right: 12.5%;
-  // }
 }
 #menuToggle a {
   text-decoration: none;
@@ -204,7 +196,12 @@
   transform: translate(100%, 0);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   @include tablet {
-    margin: 5% 0 0 -300%;
+    margin: 5% 0 0 -347%;
+    width: 131px;
+  }
+  @include desktop {
+    width: 145px;
+    margin: 5% 0 0 -280%;
   }
 }
 #menu li {

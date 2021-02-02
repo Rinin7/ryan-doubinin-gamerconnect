@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
 import "./ActivityList.scss";
-import lol from "../../assets/images/games/lol.jpg";
 
-export default function ActivityList({ activityList, games, user, username }) {
+export default function ActivityList({ activityList, games, username }) {
   let { id, selectedGame, host, skill, timestamp, description } = activityList;
 
+  // FUNCTION TO RENDER GAMES
   function renderSelectedGame() {
     if (games && games.length !== 0 && selectedGame !== "") {
       const current = games.find((game) => game.title === selectedGame);
       return <img className="activitylist__image" src={current.imageUrl} />;
-      // console.log(current, selectedGame);
     }
   }
 
@@ -32,10 +31,7 @@ export default function ActivityList({ activityList, games, user, username }) {
           <h4 className="activitylist__description">{description}</h4>
         </div>
       </div>
-      <div className="activitylist__game-container">
-        {renderSelectedGame()}
-        {/* <h3 className="activitylist__game-title">{selectedGame}</h3> */}
-      </div>
+      <div className="activitylist__game-container">{renderSelectedGame()}</div>
     </div>
   );
 }

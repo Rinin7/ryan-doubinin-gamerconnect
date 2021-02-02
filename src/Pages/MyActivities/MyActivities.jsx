@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import fire from "../../config/Fire";
-import firebase from "firebase";
 import ActivityList from "../../components/ActivityList/ActivityList";
 import "./MyActivities.scss";
 
 function MyActivities({ user, username }) {
   const [games, setGames] = useState([]);
-  const { id } = useParams();
   const db = fire.firestore();
   const [activities, setActivities] = useState([]);
-  const history = useHistory();
 
   // GET FUNCTION TO PULL THE FIELDS OF THE REQUESTED ACTIVITY
   function getActivities() {
@@ -31,11 +28,11 @@ function MyActivities({ user, username }) {
           return activities.docs.map((doc) => ({ ...doc.data(), timestamp: timeSince(doc.data().timestamp.seconds * 1000), id: doc.id }));
         }),
     ]).then((responses) => {
-      console.log(responses);
       setActivities([...responses[0], ...responses[1]]);
     });
   }
 
+  // FUNCTION TO GET GAMES COLLECTION DATA
   function getGames() {
     db.collection("games")
       .get()

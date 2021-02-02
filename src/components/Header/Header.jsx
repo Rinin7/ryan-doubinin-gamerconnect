@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import fire from "../../config/Fire";
 import "./Header.scss";
-import gear from "../../assets/icons/gear3.png";
-import logo from "../../assets/logos/GamerConnect.png";
 
-export default function Header({ user, username }) {
+export default function Header({ username }) {
   const history = useHistory();
 
+  // LOGOUT FUNCTION
   function logout() {
     fire.auth().signOut();
     history.push("/login");
@@ -18,7 +17,6 @@ export default function Header({ user, username }) {
       <div className="header__logo-container">
         <Link to="/">
           <h2 className="header__logo">GamerConnect</h2>
-          {/* <img src={logo} /> */}
         </Link>
         <h3 className="header__username">{username}</h3>
       </div>

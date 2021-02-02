@@ -44,21 +44,9 @@
     display: flex;
     width: 100%;
     height: 270px;
-    overflow-x: auto;
-    padding-left: 42px;
-
-    // ::-webkit-scrollbar {
-    //   width: 25px;
-    // }
-
-    // ::-webkit-scrollbar-track {
-    //   border: 7px solid #232943;
-    //   box-shadow: inset 0 0 2.5px 2px rgba(0, 0, 0, 0.5);
-    // }
-
-    // ::-webkit-scrollbar-thumb {
-    //   background: linear-gradient(45deg, #06dee1, #79ff6c) border-radius 3px;
-    // }
+    overflow-x: scroll;
+    box-sizing: border-box;
+    padding-left: 25px;
   }
 
   &__posts-header {
@@ -91,7 +79,6 @@
 
 .home__gamelist::-webkit-scrollbar-track {
   border: 4px solid $secondary-color;
-  // box-shadow: inset 0 0 2.5px 2px rgba(0, 0, 0, 0.5);
 }
 
 .home__gamelist::-webkit-scrollbar-thumb {

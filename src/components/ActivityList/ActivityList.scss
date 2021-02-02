@@ -12,7 +12,7 @@
   border: 5px double;
 
   @include desktop {
-    width: 60%;
+    width: 70%;
   }
 
   &__info-container {
@@ -42,7 +42,6 @@
     display: flex;
     font-style: italic;
     align-items: center;
-    // font-weight: bold;
 
     @include tablet {
       padding-left: 20px;

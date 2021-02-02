@@ -17,20 +17,12 @@ export default function ViewActivity({ user, username }) {
 
   // GET FUNCTION TO PULL THE FIELDS OF THE REQUESTED ACTIVITY
   const getActivity = () => {
-    console.log(activity);
-    console.log(user);
     return db.doc(`activities/${id}`).onSnapshot((document) => {
       if (document.exists) {
         setActivity({ ...document.data(), timestamp: timeSince(document.data().timestamp.seconds * 1000) });
-
         setActivityJoined(!!document.data()[user.uid]);
-        console.log(activity);
       }
     });
-
-    // .catch((error) => {
-    //   console.log(`Error getting documents: ${error}`);
-    // });
   };
 
   // FUNCTION TO CHANGE TIMESTAMP
@@ -71,13 +63,13 @@ export default function ViewActivity({ user, username }) {
     }
   };
 
+  // FUNCTION TO GET GAMES COLLECTION DATA
   function getGames() {
     db.collection("games")
       .get()
       .then((querySnapshot) => {
         const items = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         setGames(items);
-        console.log(items);
       });
   }
 
@@ -85,6 +77,7 @@ export default function ViewActivity({ user, username }) {
     getGames();
   }, []);
 
+  // FUNCTION TO GET MESSAGES
   const getMessages = () => {
     return db
       .doc(`activities/${id}`)
@@ -96,12 +89,11 @@ export default function ViewActivity({ user, username }) {
           ...doc.data(),
           id: doc.id,
         }));
-        console.log(data);
         setMessages(data);
       });
   };
+
   useEffect(() => {
-    console.log("useEffect called");
     if (user) {
       const messages = getMessages();
       const activity = getActivity();
@@ -114,26 +106,25 @@ export default function ViewActivity({ user, username }) {
     }
   }, []);
 
+  // CHANGE HANDLER FOR NEW MESSAGES
   const handleOnChange = (event) => {
     setNewMessage(event.target.value);
   };
 
+  // SUBMIT HANDLER TO CREATE A NEW MESSAGE
   const handleOnSubmit = (event) => {
     event.preventDefault();
 
-    // if (db) {
     db.doc(`activities/${id}`).collection("messages").add({
       text: newMessage,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       username,
     });
-    // }
-
     setNewMessage("");
   };
 
   // DELETE FUNCTION
-  function deleteActivity(activity) {
+  function deleteActivity() {
     db.collection("activities")
       .doc(id)
       .delete()
@@ -201,9 +192,7 @@ export default function ViewActivity({ user, username }) {
 
   function renderSelectedGame() {
     if (games && games.length !== 0 && activity.length !== 0 && activity.selectedGame !== "") {
-      console.log(messages, username);
       const current = games.find((game) => game.title === activity.selectedGame);
-      console.log(current, activity);
 
       return <img className="activitylist__image" src={current.imageUrl} />;
     }
@@ -237,13 +226,8 @@ export default function ViewActivity({ user, username }) {
               <h4 className="view__description">{activity.description}</h4>
             </div>
           </div>
-          <div className="view__game-container">
-            {/* <img className="activitylist__image" src={activity.imageUrl} /> */}
-            {renderSelectedGame()}
-            {/* <h3 className="activitylist__game-title">{selectedGame}</h3> */}
-          </div>
+          <div className="view__game-container">{renderSelectedGame()}</div>
         </div>
-
         {joined()}
       </div>
       <div className="view__button-container">
@@ -263,16 +247,6 @@ export default function ViewActivity({ user, username }) {
         )}
         {lobbyButton()}
       </div>
-      {/* {activity[user.uid] !== true ? (
-          <button onClick={() => joinLobbyHandler(activity)} disabled={joining}>
-            Join Lobby
-          </button>
-        ) : (
-          <button onClick={() => leaveLobbyHandler(activity)} disabled={joining}>
-            Leave Lobby
-          </button>
-        )} */}
-
       {activity.hostId === user.uid || activity[user.uid] ? (
         <>
           <div className="view__header-container">
@@ -298,7 +272,6 @@ export default function ViewActivity({ user, username }) {
       ) : (
         ""
       )}
-      {/* </div> */}
     </>
   );
 }

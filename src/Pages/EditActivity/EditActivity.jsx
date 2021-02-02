@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import fire from "../../config/Fire";
 import firebase from "firebase";
 import "./EditActivity.scss";
 
-export default function EditActivity({ username }) {
+export default function EditActivity() {
   const { id } = useParams();
   const db = fire.firestore();
   const [activity, setActivity] = useState([]);
@@ -14,11 +14,9 @@ export default function EditActivity({ username }) {
   const [description, setDescription] = useState("");
   const ref = firebase.firestore().collection("activities");
   const history = useHistory();
-  const timestamp = firebase.firestore.FieldValue.serverTimestamp();
 
   // GET FUNCTION TO PULL THE FIELDS OF THE REQUESTED ACTIVITY
   function getActivity() {
-    console.log(id);
     db.doc(`activities/${id}`)
       .get()
       .then((document) => {
@@ -34,7 +32,6 @@ export default function EditActivity({ username }) {
 
   useEffect(() => {
     getActivity();
-    console.log(activity);
   }, []);
 
   // GET FUNCTION TO PULL THE FIELDS OF THE REQUESTED ACTIVITY
@@ -44,7 +41,6 @@ export default function EditActivity({ username }) {
       .then((querySnapshot) => {
         const items = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         setGames(items);
-        console.log(items);
       });
   }
 
@@ -52,7 +48,6 @@ export default function EditActivity({ username }) {
     if (games.length === 0) {
       getGames();
     }
-    console.log(games);
   }, []);
 
   // EDIT FUNCTION
@@ -77,19 +72,17 @@ export default function EditActivity({ username }) {
   // FORM CHANGE HANDLERS
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
-    console.log(event.target.value);
   };
 
   const handleSkillChange = (event) => {
     setSkill(event.target.value);
-    console.log(event.target.value);
   };
 
   const handleGameChange = (event) => {
     setSelectedGame(event.target.value);
-    console.log(event.target.value);
   };
 
+  // FUNCTION TO RENDER A GAME PICTURE BASED ON GAME SELECTED IN DROP DOWN MENU
   function renderSelectedGame() {
     if (selectedGame !== "" && games.length !== 0) {
       const current = games.find((game) => game.title === selectedGame);

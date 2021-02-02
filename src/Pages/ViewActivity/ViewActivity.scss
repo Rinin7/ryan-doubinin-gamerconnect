@@ -71,7 +71,6 @@
     display: flex;
     font-style: italic;
     align-items: center;
-    // font-weight: bold;
 
     @include tablet {
       padding-left: 20px;
@@ -231,7 +230,6 @@
     padding: 1.5%;
     color: $global-font;
     font-family: "Quattrocento";
-    // font-weight: 700;
     font-size: 1.1rem;
   }
   &__received {
@@ -259,7 +257,6 @@
       padding: 8px 16px;
       height: 36px;
       margin-bottom: 0;
-      // font-size: 0.8125rem;
       height: 56px;
       font-family: "Quattrocento";
       font-weight: 700;

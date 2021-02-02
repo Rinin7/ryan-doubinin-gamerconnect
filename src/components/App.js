@@ -15,17 +15,13 @@ function App() {
   const [authListenerAdded, setAuthListenerAdded] = useState(false);
   const [username, setUsername] = useState("");
   const db = fire.firestore();
-  // const [newUsername, setNewUsername] = useState(undefined);
-  // const [signUpSuccess, setSignUpSuccess] = useState(false);
 
+  // FUNCTION FOR AUTHENTICATION
   const authListener = () => {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
         localStorage.setItem("isAuthenticated", "true");
-        // console.log("localStorage", localStorage.getItem("isAuthenticated"));
-        // console.log({ user });
-        // console.log(newUsername);
       } else {
         setUser(null);
         localStorage.removeItem("isAuthenticated");
@@ -46,28 +42,19 @@ function App() {
         .get()
         .then((documentSnapshot) => {
           const data = documentSnapshot.data();
+
           if (data && data.username) {
             setUsername(documentSnapshot.data().username);
           }
         });
     }
-
-    // fire.auth().currentUser
   }, [user]);
 
   const handleLogin = (user) => {
     setUser(user);
   };
 
-  // const newUserHandler = (username) => {
-  //   setNewUsername(username);
-  //   console.log("from newUserHandler", username);
-  // };
-
-  // const newUserSuccessHandler = () => {
-  //   setSignUpSuccess(true);
-  // };
-
+  // FUNCTION TO CHANGE ROUTES TO PROTECTED ROUTES
   function PrivateRoute({ component: Component, ...rest }) {
     return <Route {...rest} render={(props) => (localStorage.isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />)} />;
   }

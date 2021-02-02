@@ -7,16 +7,13 @@ import "./CreateActivity.scss";
 export default function CreateActivity({ user, username }) {
   const db = fire.firestore();
   const history = useHistory();
-  // const [user, setUser] = useState("");
   const [games, setGames] = useState([]);
   const [selectedGame, setSelectedGame] = useState("");
-  const [gamePicture, setGamePicture] = useState("");
-  // const [title, setTitle] = useState("");
   const [skill, setSkill] = useState("");
   const [description, setDescription] = useState("");
   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-  // const timestamp = new Date(timeInMilliseconds).toLocaleString();
 
+  // FUNCTION TO ADD NEW ACTIVITY
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -30,16 +27,17 @@ export default function CreateActivity({ user, username }) {
       });
   };
 
+  // FUNCTION TO GET GAMES COLLECTION DATA
   function getGames() {
     db.collection("games")
       .get()
       .then((querySnapshot) => {
         const items = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         setGames(items);
-        console.log(items);
       });
   }
 
+  // FUNCTION TO RENDER A GAME PICTURE BASED ON GAME SELECTED IN DROP DOWN MENU
   function renderSelectedGame() {
     if (selectedGame !== "") {
       const current = games.find((game) => game.title === selectedGame);
@@ -50,9 +48,7 @@ export default function CreateActivity({ user, username }) {
   useEffect(() => {
     if (games.length === 0) {
       getGames();
-      // getGameImage();
     }
-    console.log(games);
   }, []);
 
   return (
@@ -73,6 +69,17 @@ export default function CreateActivity({ user, username }) {
                   <option value="">Please select...</option>
                   {games
                     .filter((game) => (game.title.includes("All") ? "" : game.title))
+                    .sort(function (a, b) {
+                      var titleA = a.title;
+                      var titleB = b.title;
+                      if (titleA < titleB) {
+                        return -1;
+                      }
+                      if (titleA > titleB) {
+                        return 1;
+                      }
+                      return 0;
+                    })
                     .map((game) => (
                       <>
                         <option value={game.title} key={game.id}>
