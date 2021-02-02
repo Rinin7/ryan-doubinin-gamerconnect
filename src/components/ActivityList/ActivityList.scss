@@ -9,6 +9,7 @@
   font-family: "Quattrocento";
   height: 180px;
   width: 90%;
+  border: 5px double;
 
   @include desktop {
     width: 60%;
