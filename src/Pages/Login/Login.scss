@@ -24,7 +24,6 @@
     flex-direction: column;
     border: 1px solid grey;
     border-radius: 5px;
-    padding: 16px;
     padding: 0 5%;
 
     @include tablet {
@@ -43,7 +42,7 @@
       box-sizing: border-box;
       margin-bottom: 16px;
       background-color: white;
-      font-family: "Avenir";
+      font-family: "Quattrocento";
       padding: 4px 16px;
       border: 2px solid #bdc5d5;
       width: 100%;
@@ -67,15 +66,15 @@
       }
     }
 
-    &-signup {
-      @include button-design;
-      height: 48px;
-      margin-bottom: 45px;
-      width: 100%;
-      background-color: $secondary-color;
+    &-error {
+      font-weight: bold;
+      color: rgb(233, 24, 24);
+      margin-top: 0;
 
-      &:hover {
-        background-color: $primary-color;
+      &-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }

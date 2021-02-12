@@ -4,20 +4,19 @@ import fire from "../../config/Fire";
 import { useHistory } from "react-router-dom";
 
 function Login() {
-  const [error, setError] = useState("");
   const emailRef = useRef();
   const passwordRef = useRef();
   const history = useHistory();
+  const [validationError, setValidationError] = useState("");
 
   // FUNCTION TO LOG IN
   async function login(event) {
     event.preventDefault();
     try {
-      setError("");
       await fire.auth().signInWithEmailAndPassword(emailRef.current.value, passwordRef.current.value);
       history.push("/");
     } catch {
-      setError("Failed to log in");
+      setValidationError("Failed to log in");
     }
   }
 
@@ -33,6 +32,9 @@ function Login() {
           Password
         </label>
         <input className="login__form-input" type="password" id="password" name="password" placeholder="Enter your password" ref={passwordRef} />
+        <div className="login__form-error-container">
+          <p className="login__form-error">{validationError}</p>
+        </div>
         <button className="login__form-submit" type="submit" onClick={login}>
           Log In
         </button>

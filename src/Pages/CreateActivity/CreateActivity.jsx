@@ -12,10 +12,23 @@ export default function CreateActivity({ user, username }) {
   const [skill, setSkill] = useState("");
   const [description, setDescription] = useState("");
   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+  const [validationError, setValidationError] = useState("");
 
   // FUNCTION TO ADD NEW ACTIVITY
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (selectedGame === "") {
+      return setValidationError("Please select a game");
+    }
+
+    if (skill === "") {
+      return setValidationError("Please choose a skill level");
+    }
+
+    if (description === "") {
+      return setValidationError("Please provide a brief description");
+    }
 
     db.collection("activities")
       .add({ skill, description, timestamp, selectedGame, host: username, hostId: user.uid })
@@ -113,6 +126,9 @@ export default function CreateActivity({ user, username }) {
                 placeholder="Enter a description here..."
               />
             </div>
+          </div>
+          <div className="create__form-error-container">
+            <p className="create__form-error">{validationError}</p>
           </div>
           <div className="create__button-container">
             <button className="create__button-submit" type="submit">

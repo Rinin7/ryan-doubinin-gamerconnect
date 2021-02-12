@@ -12,6 +12,7 @@ export default function EditActivity() {
   const [selectedGame, setSelectedGame] = useState("");
   const [skill, setSkill] = useState("");
   const [description, setDescription] = useState("");
+  const [validationError, setValidationError] = useState("");
   const ref = firebase.firestore().collection("activities");
   const history = useHistory();
 
@@ -53,6 +54,18 @@ export default function EditActivity() {
   // EDIT FUNCTION
   function editActivity(event) {
     event.preventDefault();
+
+    if (selectedGame === "") {
+      return setValidationError("Please select a game");
+    }
+
+    if (skill === "") {
+      return setValidationError("Please choose a skill level");
+    }
+
+    if (description === "") {
+      return setValidationError("Please provide a brief description");
+    }
 
     ref
       .doc(`${id}`)
@@ -128,6 +141,9 @@ export default function EditActivity() {
               Description:
             </label>
             <textarea className="edit__form-input" type="text" id="description" name="description" value={description} onChange={handleDescriptionChange} />
+          </div>
+          <div className="edit__form-error-container">
+            <p className="edit__form-error">{validationError}</p>
           </div>
           <div className="edit__button-container">
             <button className="edit__button-submit" type="submit">

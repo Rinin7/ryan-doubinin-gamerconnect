@@ -20,6 +20,7 @@ function App() {
   const authListener = () => {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
+        console.log(user);
         setUser(user);
         localStorage.setItem("isAuthenticated", "true");
       } else {
@@ -50,10 +51,6 @@ function App() {
     }
   }, [user]);
 
-  const handleLogin = (user) => {
-    setUser(user);
-  };
-
   // FUNCTION TO CHANGE ROUTES TO PROTECTED ROUTES
   function PrivateRoute({ component: Component, ...rest }) {
     return <Route {...rest} render={(props) => (localStorage.isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />)} />;
@@ -64,8 +61,8 @@ function App() {
       <div className="App">
         <Header username={username} user={user} />
         <Switch>
-          <Route path="/login" exact component={(routerProps) => <Login {...routerProps} user={user} handler={handleLogin} />} />
-          <Route path="/signup" exact component={(routerProps) => <Signup {...routerProps} user={user} handler={handleLogin} />} />
+          <Route path="/login" exact component={(routerProps) => <Login {...routerProps} user={user} />} />
+          <Route path="/signup" exact component={(routerProps) => <Signup {...routerProps} user={user} />} />
           <PrivateRoute path="/" exact component={(routerProps) => <Home {...routerProps} user={user} />} />
           <PrivateRoute path="/myactivities" exact component={(routerProps) => <MyActivities {...routerProps} user={user} username={username} />} />
           <PrivateRoute path="/create" exact component={(routerProps) => <CreateActivity {...routerProps} user={user} username={username} />} />
