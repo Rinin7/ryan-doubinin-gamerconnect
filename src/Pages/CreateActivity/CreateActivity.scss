@@ -62,10 +62,10 @@
       }
     }
 
-    &-info {
-      display: flex;
-      flex-direction: column;
-    }
+    // &-info {
+    //   display: flex;
+    //   flex-direction: column;
+    // }
 
     &-input {
       resize: none;
@@ -88,6 +88,12 @@
         border-color: $secondary-color;
         outline: none;
       }
+    }
+
+    &-dota-input {
+      @extend .create__form-input;
+      height: 50px;
+      margin-bottom: 20px;
     }
 
     &-select {
