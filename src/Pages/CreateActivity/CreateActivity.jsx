@@ -18,25 +18,19 @@ export default function CreateActivity({ user, username }) {
   const [avatar, setAvatar] = useState("");
   const [persona, setPersona] = useState("");
   const [steam, setSteam] = useState("");
-
-  // Axios call to OpenDOTA API
-  if (steam.length === 8) {
-    axios.get(`https://api.opendota.com/api/players/${steam}/`).then((res) => {
-      setMmr(res.data.solo_competitive_rank);
-      setAvatar(res.data.profile.avatarmedium);
-      setPersona(res.data.profile.personaname);
-      console.log(res);
-    });
-  }
+  const [steamError, setSteamError] = useState("");
+  const [apiError, setApiError] = useState(false);
 
   // FUNCTION TO DISPLAY STEAM PROFILE INFO
   function steamProfile() {
     if (mmr) {
       return (
-        <div>
-          <img src={avatar} />
-          <p>Steam Username: {persona}</p>
-          <p>Dota MMR: {mmr}</p>
+        <div className="create__form-steam">
+          <img classname="create__form-steam-avatar" src={avatar} alt="steam avatar" />
+          <div className="create__form-steam-info">
+            <p className="create__form-steam-username">Steam Username: {persona}</p>
+            <p className="create__form-steam-mmr">Dota MMR: {mmr}</p>
+          </div>
         </div>
       );
     }
@@ -58,8 +52,17 @@ export default function CreateActivity({ user, username }) {
       return setValidationError("Please provide a brief description");
     }
 
+    if (steam.length >= 1 && steam.length !== 8) {
+      setApiError(false);
+      return setValidationError("Steam ID requires 8 digits");
+    }
+
+    if (apiError === true) {
+      return setValidationError("Unable to find Steam profile. Invalid Steam ID.");
+    }
+
     db.collection("activities")
-      .add({ skill, description, timestamp, selectedGame, host: username, hostId: user.uid })
+      .add({ skill, description, timestamp, selectedGame, host: username, hostId: user.uid, mmr, avatar, persona, steam })
       .then((res) => {
         history.push("/");
       })
@@ -87,10 +90,37 @@ export default function CreateActivity({ user, username }) {
   }
 
   useEffect(() => {
+    // Axios call to OpenDOTA API
+    if (steam.length === 8) {
+      axios
+        .get(`https://api.opendota.com/api/players/${steam}/`)
+        .then((res) => {
+          setMmr(res.data.solo_competitive_rank);
+          setAvatar(res.data.profile.avatarmedium);
+          setPersona(res.data.profile.personaname);
+          setApiError(false);
+        })
+        .catch((err) => {
+          setApiError(true);
+          setSteamError("Unable to find Steam profile. Invalid Steam ID.");
+        });
+    } else {
+      setMmr("");
+      setAvatar("");
+      setPersona("");
+    }
+
     if (games.length === 0) {
       getGames();
     }
-  }, []);
+  }, [steam]);
+
+  const handleSteamChange = (event) => {
+    setSteam(event.target.value);
+    if (!event.target.value) {
+      setApiError(false);
+    }
+  };
 
   return (
     <>
@@ -100,7 +130,6 @@ export default function CreateActivity({ user, username }) {
         </div>
         <form className="create__form" onSubmit={handleSubmit}>
           <div className="create__form-container">
-            {/* <div className="create__form-game"> */}
             <label className="create__form-label" htmlFor="game">
               Game
             </label>
@@ -135,14 +164,13 @@ export default function CreateActivity({ user, username }) {
                 <label className="create__form-label" htmlFor="steam">
                   Steam ID
                 </label>
-                <input className="create__form-dota-input" type="text" id="steam" name="steam" onChange={(event) => setSteam(event.target.value)} />
+                <input className="create__form-dota-input" type="text" id="steam" name="steam" onChange={handleSteamChange} placeholder="Enter your Steam ID to display your MMR (not required)" />
+                <p className="create__form-steam-error">{steamError}</p>
               </div>
             ) : (
               <div></div>
             )}
             {steamProfile()}
-            {/* </div> */}
-            {/* <div className="create__form-info"> */}
             <label className="create__form-label" htmlFor="skill">
               Skill
             </label>

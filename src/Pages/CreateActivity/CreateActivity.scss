@@ -8,10 +8,16 @@
   }
 
   &__header {
-    font-size: 2.25rem;
-    line-height: 44px;
-    padding: 48px 0 32px;
+    font-size: 2rem;
+    padding: 24px 0 20px;
     margin: 0;
+
+    @include tablet {
+      font-size: 2.25rem;
+      line-height: 44px;
+      padding: 48px 0 32px;
+      margin: 0;
+    }
 
     &-container {
       display: flex;
@@ -52,20 +58,16 @@
     &-label {
       margin-top: 40px;
       font-weight: 500;
-      font-size: 1.5rem;
+      font-size: 1.1rem;
       color: black;
       margin: 0;
       padding: 0 5%;
 
       @include tablet {
         padding: 0 3.125%;
+        font-size: 1.5rem;
       }
     }
-
-    // &-info {
-    //   display: flex;
-    //   flex-direction: column;
-    // }
 
     &-input {
       resize: none;
@@ -93,7 +95,6 @@
     &-dota-input {
       @extend .create__form-input;
       height: 50px;
-      margin-bottom: 20px;
     }
 
     &-select {
@@ -122,6 +123,23 @@
       }
     }
 
+    &-steam {
+      display: flex;
+      background-color: black;
+      color: white;
+      margin-bottom: 20px;
+
+      &-info {
+        margin-left: 20px;
+      }
+
+      &-error {
+        font-size: 0.875rem;
+        font-weight: bold;
+        color: rgb(233, 24, 24);
+      }
+    }
+
     &-error {
       font-weight: bold;
       color: rgb(233, 24, 24);
@@ -141,13 +159,14 @@
     right: 0;
     bottom: 0;
     left: 0;
-    padding: 0 16px 24px;
+    padding: 0 16px 0px;
 
     @include tablet {
       padding-top: 40px;
       flex-direction: row-reverse;
       align-items: center;
       position: unset;
+      padding: 0 16px 24px;
     }
   }
 

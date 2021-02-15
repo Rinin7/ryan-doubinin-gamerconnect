@@ -190,11 +190,23 @@ export default function ViewActivity({ user, username }) {
     }
   }
 
+  // FUNCTION TO RENDER GAME IMAGE BASED ON SELECTED GAME
   function renderSelectedGame() {
     if (games && games.length !== 0 && activity.length !== 0 && activity.selectedGame !== "") {
       const current = games.find((game) => game.title === activity.selectedGame);
 
       return <img className="activitylist__image" src={current.imageUrl} />;
+    }
+  }
+
+  // FUNCTION TO DISPLAY MMR
+  function displayMmr() {
+    if (activity.mmr) {
+      return (
+        <div className="view__dota">
+          <h4 className="view__dota-mmr">Dota MMR: {activity.mmr}</h4>
+        </div>
+      );
     }
   }
 
@@ -226,7 +238,10 @@ export default function ViewActivity({ user, username }) {
               <h4 className="view__description">{activity.description}</h4>
             </div>
           </div>
-          <div className="view__game-container">{renderSelectedGame()}</div>
+          <div className="view__game-container">
+            {renderSelectedGame()}
+            {displayMmr()}
+          </div>
         </div>
         {joined()}
       </div>

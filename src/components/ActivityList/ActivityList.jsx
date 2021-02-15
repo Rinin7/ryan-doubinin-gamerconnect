@@ -2,13 +2,24 @@ import React, { useEffect } from "react";
 import "./ActivityList.scss";
 
 export default function ActivityList({ activityList, games, username }) {
-  let { id, selectedGame, host, skill, timestamp, description } = activityList;
+  let { id, selectedGame, host, skill, timestamp, description, mmr } = activityList;
 
   // FUNCTION TO RENDER GAMES
   function renderSelectedGame() {
     if (games && games.length !== 0 && selectedGame !== "") {
       const current = games.find((game) => game.title === selectedGame);
       return <img className="activitylist__image" src={current.imageUrl} />;
+    }
+  }
+
+  // FUNCTION TO DISPLAY MMR
+  function displayMmr() {
+    if (mmr) {
+      return (
+        <div className="activitylist__dota">
+          <h4 className="activitylist__dota-mmr">Dota MMR: {mmr}</h4>
+        </div>
+      );
     }
   }
 
@@ -31,7 +42,10 @@ export default function ActivityList({ activityList, games, username }) {
           <h4 className="activitylist__description">{description}</h4>
         </div>
       </div>
-      <div className="activitylist__game-container">{renderSelectedGame()}</div>
+      <div className="activitylist__game-container">
+        {renderSelectedGame()}
+        {displayMmr()}
+      </div>
     </div>
   );
 }
