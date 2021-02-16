@@ -117,6 +117,7 @@ export default function CreateActivity({ user, username }) {
 
   const handleSteamChange = (event) => {
     setSteam(event.target.value);
+    setSteamError("");
     if (!event.target.value) {
       setApiError(false);
     }
