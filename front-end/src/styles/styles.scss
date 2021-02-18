@@ -1,0 +1,21 @@
+@import "./partials/variables";
+@import "./partials/mixins";
+@import "./partials/typography";
+
+body {
+  margin: 0;
+  font-family: "Oswald", sans-serif;
+  color: black;
+  background-color: #bdc5d5;
+  overflow-x: hidden;
+  scrollbar-color: $secondary-color;
+}
+
+a {
+  color: white;
+
+  &:active,
+  &:focus {
+    color: white;
+  }
+}

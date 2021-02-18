@@ -1,0 +1,282 @@
+@import "../../styles/styles.scss";
+
+.view {
+  padding: 0 12.5%;
+  margin-top: 72px;
+
+  @include tablet {
+    margin-top: 104px;
+  }
+
+  &__header {
+    font-size: 2.25rem;
+    line-height: 44px;
+    padding: 48px 0 32px;
+    margin: 0;
+
+    &-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    &-conversation {
+      padding: 0;
+    }
+  }
+
+  &__input {
+    border: 1px solid #bdc5d5;
+    box-sizing: border-box;
+    border-radius: 20px;
+    background: #ffffff;
+    resize: none;
+    width: 100%;
+    padding: 8px 16px;
+    height: 36px;
+    margin-bottom: 20px;
+    font-size: 0.8125rem;
+  }
+
+  &__activitylist {
+    background-color: $primary-color;
+    display: flex;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 10px 5%;
+    font-family: "Quattrocento";
+    height: 180px;
+    width: 90%;
+    color: white;
+  }
+
+  &__info-container {
+    width: 80%;
+  }
+
+  &__user-date {
+    @include tablet {
+      display: flex;
+    }
+  }
+
+  &__host {
+    background-color: $nuetral-color;
+    border-radius: 20px;
+    color: $primary-color;
+    padding: 10px 30% 10px 10px;
+    display: inline-block;
+  }
+
+  &__info-secondary {
+    display: flex;
+    font-style: italic;
+    align-items: center;
+
+    @include tablet {
+      padding-left: 20px;
+    }
+  }
+
+  &__skill {
+    margin: 0;
+    font-weight: 700;
+  }
+
+  &__bullet {
+    padding: 0 5px;
+    margin: 0;
+  }
+
+  &__info {
+    margin: 0;
+  }
+
+  &__game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 80px;
+    height: 80px;
+
+    @include tablet {
+      width: 160px;
+      height: 160px;
+    }
+  }
+
+  &__game-title {
+    margin: 10px 0 0;
+    background-color: $nuetral-color;
+    border-radius: 20px;
+    color: $primary-color;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+  }
+
+  &__description {
+    margin: 5px 0 0 0;
+    width: 90%;
+    height: 70px;
+    overflow: hidden;
+
+    @include desktop {
+      overflow: unset;
+    }
+  }
+
+  &__button-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px 24px;
+
+    @include tablet {
+      padding-top: 40px;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+    }
+  }
+
+  &__button-edit {
+    @include button-design;
+    height: 48px;
+    margin-bottom: 24px;
+    width: 100%;
+    background-color: $secondary-color;
+
+    @include tablet {
+      width: 160px;
+    }
+
+    &:hover {
+      background-color: $primary-color;
+    }
+  }
+
+  &__button-delete {
+    @include button-design;
+    height: 48px;
+    margin-bottom: 24px;
+    width: 100%;
+    background-color: #d11a2a;
+
+    @include tablet {
+      width: 160px;
+      margin-left: 48px;
+    }
+
+    &:hover {
+      background-color: #ff4b5b;
+    }
+  }
+
+  &__button-join {
+    @include button-design;
+    height: 48px;
+    margin-bottom: 24px;
+    width: 100%;
+    background-color: $secondary-color;
+
+    @include tablet {
+      width: 160px;
+    }
+
+    &:hover {
+      background-color: $primary-color;
+    }
+  }
+
+  &__button-leave {
+    @include button-design;
+    height: 48px;
+    margin-bottom: 24px;
+    width: 100%;
+    background-color: #d11a2a;
+
+    @include tablet {
+      width: 160px;
+    }
+
+    &:hover {
+      background-color: #ff4b5b;
+    }
+  }
+
+  &__chat {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__chat-boxes {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  &__sent {
+    background-color: $secondary-color;
+    text-align: right;
+    width: 50%;
+    border-radius: 20px 20px 20px 20px;
+    margin-bottom: 2%;
+    align-self: flex-end;
+    padding: 1.5%;
+    color: $global-font;
+    font-family: "Quattrocento";
+    font-size: 1.1rem;
+  }
+  &__received {
+    background-color: $primary-color;
+    text-align: left;
+    width: 50%;
+    border-radius: 20px 20px 20px 20px;
+    align-self: flex-start;
+    padding: 1.5%;
+    color: $global-font;
+    margin-bottom: 2%;
+    font-family: "Quattrocento";
+    font-size: 1.1rem;
+  }
+  &__form {
+    display: flex;
+    width: 100%;
+
+    &-input {
+      border: 2px solid #bdc5d5;
+      box-sizing: border-box;
+      background: white;
+      resize: none;
+      width: 100%;
+      padding: 8px 16px;
+      height: 36px;
+      margin-bottom: 0;
+      height: 56px;
+      font-family: "Quattrocento";
+      font-weight: 700;
+      font-size: 1rem;
+
+      &:active,
+      &:focus {
+        border-color: $secondary-color;
+        outline: none;
+      }
+    }
+
+    &-send {
+      background-color: $primary-color;
+      color: white;
+    }
+  }
+  &__dota-mmr {
+    font-weight: bold;
+    color: white;
+    margin: 0;
+  }
+}

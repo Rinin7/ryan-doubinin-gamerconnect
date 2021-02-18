@@ -1,0 +1,94 @@
+@import "../../styles/styles.scss";
+
+.signup {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  margin-top: 95px;
+  justify-content: center;
+
+  @include tablet {
+    align-items: center;
+    margin-top: 140px;
+  }
+
+  &__header {
+    font-size: 30px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 0 5%;
+
+    @include tablet {
+      width: 400px;
+    }
+
+    &-title {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    &-input {
+      width: 100%;
+      height: 48px;
+      border-radius: 20px;
+      box-sizing: border-box;
+      margin-bottom: 16px;
+      background-color: white;
+      font-family: "Quattrocento";
+      padding: 4px 16px;
+      border: 2px solid #bdc5d5;
+      width: 100%;
+      resize: none;
+
+      &:active,
+      &:focus {
+        border-color: $primary-color;
+        outline: none;
+      }
+    }
+
+    &-signup {
+      @include button-design;
+      height: 48px;
+      margin-bottom: 45px;
+      width: 100%;
+      background-color: $secondary-color;
+
+      &:hover {
+        background-color: $primary-color;
+      }
+    }
+
+    &-error {
+      font-weight: bold;
+      color: rgb(233, 24, 24);
+      margin-top: 0;
+
+      &-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+  &__redirect {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__login-link {
+    color: $secondary-color;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}

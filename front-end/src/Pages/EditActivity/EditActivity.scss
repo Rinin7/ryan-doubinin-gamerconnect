@@ -1,0 +1,210 @@
+@import "../../styles/styles.scss";
+
+.edit {
+  margin-top: 72px;
+
+  @include tablet {
+    margin-top: 104px;
+  }
+
+  &__header {
+    font-size: 2rem;
+    padding: 24px 0 20px;
+    margin: 0;
+
+    @include tablet {
+      font-size: 2.25rem;
+      line-height: 44px;
+      padding: 48px 0 32px;
+      margin: 0;
+    }
+
+    &-container {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &__form {
+    border: none;
+    width: 100%;
+
+    @include tablet {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &-container {
+      @include tablet {
+        width: 70%;
+      }
+    }
+
+    &-game {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-image {
+      width: 50px;
+      height: 50px;
+    }
+
+    &-game-line {
+      display: flex;
+    }
+
+    &-label {
+      margin-top: 40px;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: black;
+      margin: 0;
+      padding: 0 5%;
+
+      @include tablet {
+        padding: 0 3.125%;
+        font-size: 1.5rem;
+      }
+    }
+
+    &-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-input {
+      resize: none;
+      border: 2px solid #bdc5d5;
+      box-sizing: border-box;
+      background: white;
+      resize: none;
+      width: 100%;
+      max-width: 100%;
+      padding: 8px 16px;
+      height: 36px;
+      margin-bottom: 0;
+      height: 120px;
+      font-family: "Quattrocento";
+      font-weight: 700;
+      font-size: 1rem;
+
+      &:active,
+      &:focus {
+        border-color: $secondary-color;
+        outline: none;
+      }
+    }
+
+    &-dota-input {
+      @extend .edit__form-input;
+      height: 50px;
+      margin-bottom: 20px;
+    }
+
+    &-select {
+      background-image: url(../../assets/icons/arrow_drop_down-24px.svg);
+      background-repeat: no-repeat, repeat;
+      background-position: right 23px top 50%, 0 0;
+      background-size: 1.5em auto, 100%;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      border: 2px solid #bdc5d5;
+      box-sizing: border-box;
+      resize: none;
+      width: 100%;
+      max-width: 100%;
+      padding: 8px 16px;
+      height: 50px;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      font-family: "Quattrocento";
+      font-weight: 700;
+
+      &:active,
+      &:focus {
+        border-color: $secondary-color;
+        outline: none;
+      }
+    }
+
+    &-steam {
+      display: flex;
+      background-color: black;
+      color: white;
+      margin-bottom: 20px;
+
+      &-info {
+        margin-left: 20px;
+      }
+
+      &-error {
+        font-size: 0.875rem;
+        font-weight: bold;
+        color: rgb(233, 24, 24);
+      }
+    }
+
+    &-error {
+      font-weight: bold;
+      color: rgb(233, 24, 24);
+
+      &-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+  &__button-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0 16px 0px;
+
+    @include tablet {
+      padding-top: 40px;
+      flex-direction: row-reverse;
+      align-items: center;
+      position: unset;
+      padding: 0 16px 24px;
+    }
+  }
+
+  &__button-submit {
+    @include button-design;
+    height: 48px;
+    margin-bottom: 24px;
+    width: 100%;
+
+    @include tablet {
+      width: 160px;
+      margin-left: 48px;
+    }
+
+    &:hover {
+      background-color: $secondary-color;
+    }
+  }
+
+  &__button-cancel {
+    color: $primary-color;
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 0 auto;
+    padding-bottom: 24px;
+
+    @include tablet {
+      margin: 0;
+    }
+
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+}
